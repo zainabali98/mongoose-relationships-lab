@@ -71,7 +71,7 @@ conntectToDB()
 
 async function testRelationships() {
 
-    const foundListing = await Listing.find()
+    const foundListing = await Listing.find().populate('owner')
     console.log(foundListing)}
 
     testRelationships()
