@@ -7,6 +7,13 @@ const morgan = require("morgan")
 const methodOverride = require("method-override")
 
 
+const User = require('./models/user')
+const Listing = require('./models/listing')
+const Category = require('./models/category')
+const Review = require('./models/review')
+
+
+
 
 
 
@@ -27,13 +34,13 @@ app.use(morgan("dev")) // logs the requests as they are sent to our sever in the
 
 
 
-async function conntectToDB(){ //connection to the database
-    try{
+async function conntectToDB() { //connection to the database
+    try {
         await mongoose.connect(process.env.MONGODB_URI)
         console.log("Connected to Database")
     }
-    catch(error){
-        console.log("Error Occured",error)
+    catch (error) {
+        console.log("Error Occured", error)
     }
 }
 
@@ -62,20 +69,43 @@ conntectToDB()
 // Routes go here
 
 
+async function testRelationships() {
+    const newUser = await User.create({
+        userName: 'Red John',
+        password: 'Red123John'
+    })
+    console.log(newUser)
+
+
+    const newCategory = await Category.create({
+        categoryName: 'Small House'
+    })
+    console.log(newCategory)
+
+    const newListing = await Listing.create({
+        streetAddress: 'House 177, Road 347, Block 57',
+        city: 'California',
+        price: 1500,
+        size: 250,
+        owner: newUser._id,
+        category: newCategory._id,
+    })
+    console.log(newListing)}
+
+    testRelationships()
 
 
 
 
 
 
- 
- 
- 
- 
 
 
 
 
-app.listen(3000,()=>{
-    console.log("Listening on port " + 3000)
-}) // Listen on port 3000
+
+
+
+    app.listen(3000, () => {
+        console.log("Listening on port " + 3000)
+    }) // Listen on port 3000
