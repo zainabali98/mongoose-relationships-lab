@@ -70,27 +70,9 @@ conntectToDB()
 
 
 async function testRelationships() {
-    const newUser = await User.create({
-        userName: 'Red John',
-        password: 'Red123John'
-    })
-    console.log(newUser)
 
-
-    const newCategory = await Category.create({
-        categoryName: 'Small House'
-    })
-    console.log(newCategory)
-
-    const newListing = await Listing.create({
-        streetAddress: 'House 177, Road 347, Block 57',
-        city: 'California',
-        price: 1500,
-        size: 250,
-        owner: newUser._id,
-        category: newCategory._id,
-    })
-    console.log(newListing)}
+    const foundListing = await Listing.find()
+    console.log(foundListing)}
 
     testRelationships()
 
